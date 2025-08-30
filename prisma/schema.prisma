@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Room {
+  id            String     @id @default(cuid())
+  createdAt     DateTime   @default(now())
+  status        RoomStatus @default(LOBBY)
+  maxPlayers    Int
+  startingChips Int
+  seats         Seat[]
+  hands         Hand[]
+}
+
+model Seat {
+  id           String     @id @default(cuid())
+  roomId       String
+  room         Room       @relation(fields: [roomId], references: [id])
+  seatNumber   Int
+  currentStack Int
+  initialStack Int
+  status       SeatStatus @default(EMPTY)
+  claimedAt    DateTime?
+  stack        Int?
+
+  @@unique([roomId, seatNumber])
+}
+
+model Hand {
+  id      String  @id @default(cuid())
+  roomId  String
+  room    Room    @relation(fields: [roomId], references: [id])
+  index   Int
+  logPath String?
+  pot     Int?
+  board   String?
+  winners String?
+
+  @@index([roomId, index])
+}
+
+enum RoomStatus {
+  LOBBY
+  RUNNING
+  FINISHED
+}
+
+enum SeatStatus {
+  EMPTY
+  TAKEN
+  LOCKED
+}
