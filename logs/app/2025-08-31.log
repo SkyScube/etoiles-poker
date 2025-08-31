@@ -1,0 +1,4 @@
+{"ts":"2025-08-31T13:35:52.499Z","ns":"app","msg":"Room créée","roomid":"cmezqh7ys0000jriiqisvagps","maxPlayers":4,"startingChips":1500}
+{"ts":"2025-08-31T14:27:16.709Z","ns":"app","msg":"Room deleted","roomId":"cmey2elj20000jr1ywp97nsp2","maxPlayers":4,"startingChips":1500}
+{"ts":"2025-08-31T14:27:34.485Z","ns":"app","msg":"Room deleted","roomId":"cmey2gro70005jr1yveeyqg74","maxPlayers":6,"startingChips":2500}
+{"ts":"2025-08-31T14:27:47.790Z","ns":"app","msg":"Room deleted","roomId":"cmezqh7ys0000jriiqisvagps","maxPlayers":4,"startingChips":1500}

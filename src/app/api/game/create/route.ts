@@ -1,5 +1,6 @@
 import {NextRequest, NextResponse} from "next/server";
 import {CreateRoom} from "../../../../../lib/GameLogic/Create";
+import {ilog} from "../../../../../lib/ilogger";
 
 
 export async function POST(req: NextRequest) {
@@ -24,7 +25,7 @@ export async function POST(req: NextRequest) {
         const roomid:string = await CreateRoom(NbPlayer, NbChips);
         const url_app = process.env.APP_URL
         const url:string = url_app+"/game/romm"+roomid;
-
+        await ilog.log("Room créée", { roomid, maxPlayers: NbPlayer, startingChips: NbChips });
         return NextResponse.json({ success: true, url }, { status: 200 });
     } catch (error) {
         console.log(error);
