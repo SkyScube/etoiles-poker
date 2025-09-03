@@ -1,6 +1,6 @@
 import {NextRequest, NextResponse} from "next/server";
-import {CreateRoom} from "../../../../../lib/GameLogic/Create";
-import {ilog} from "../../../../../lib/ilogger";
+import {CreateRoom} from "@/lib/GameLogic/Create";
+import {ilog} from "@/lib/ilogger";
 
 
 export async function POST(req: NextRequest) {

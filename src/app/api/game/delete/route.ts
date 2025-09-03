@@ -1,7 +1,7 @@
 import {NextRequest, NextResponse} from "next/server";
-import {DelRoom} from "../../../../../lib/GameLogic/DelRoom";
+import {DelRoom} from "@/lib/GameLogic/DelRoom";
 import {PrismaClient} from "@prisma/client";
-import {ilog} from "../../../../../lib/ilogger";
+import {ilog} from "@/lib/ilogger";
 
 const prisma = new PrismaClient()
 
