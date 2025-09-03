@@ -1,7 +1,7 @@
 import {NextRequest, NextResponse} from "next/server";
 import {PrismaClient} from "@prisma/client";
-import {joinRoom} from "@/lib/GameLogic/JoinRoom";
-import {ilog} from "@/lib/ilogger";
+import {joinRoom} from "../../../../lib/GameLogic/JoinRoom";
+import {ilog} from "../../../../lib/ilogger";
 
 const prisma = new PrismaClient();
 
@@ -24,6 +24,6 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({success: true, status: 200});
         }
     } catch (error) {
-        return NextResponse.json({success: false, error: "Internal Server Error"}, {status: 400});
+        return NextResponse.json({success: false, error: "Internal Server Error"}, {status: 500});
     }
 }

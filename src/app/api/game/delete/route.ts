@@ -1,7 +1,7 @@
 import {NextRequest, NextResponse} from "next/server";
-import {DelRoom} from "@/lib/GameLogic/DelRoom";
+import {DelRoom} from "../../../../lib/GameLogic/DelRoom";
 import {PrismaClient} from "@prisma/client";
-import {ilog} from "@/lib/ilogger";
+import {ilog} from "../../../../lib/ilogger";
 
 const prisma = new PrismaClient()
 
@@ -21,6 +21,6 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ success: true},{status:200});
         }
     } catch {
-        return NextResponse.json({ success: false, error: "Internal error please refer to the administrator" },{status:504});
+        return NextResponse.json({ success: false, error: "Internal error please refer to the administrator" },{status:500});
     }
 }
