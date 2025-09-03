@@ -1,6 +1,6 @@
 import {NextRequest, NextResponse} from "next/server";
 import {CreateRoom} from "../../../../lib/GameLogic/Create";
-import {ilog} from "../../../../lib/ilogger";
+import {elog, ilog} from "../../../../lib/ilogger";
 
 
 export async function POST(req: NextRequest) {
@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
         await ilog.log("Room créée", { roomid, maxPlayers: NbPlayer, startingChips: NbChips });
         return NextResponse.json({ success: true, url }, { status: 200 });
     } catch (error) {
-        console.log(error);
+        await elog.error("Room creation error", { error: error})
         return NextResponse.json({ success: false, error: "Internal error please refer to the administrator" },{status:500});
     }
 

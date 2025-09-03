@@ -3,7 +3,6 @@ import {PrismaClient} from "@prisma/client";
 const prisma = new PrismaClient();
 
 export async function joinRoom(roomId:string, seatNumber:number):Promise<boolean> {
-    try{
         const result = await prisma.seat.updateMany({
             where: {
                 roomId,
@@ -19,9 +18,4 @@ export async function joinRoom(roomId:string, seatNumber:number):Promise<boolean
             throw new Error("Seat déjà occupé ou introuvable !");
         }
         return true;
-    } catch (e) {
-        console.error(e);
-        return false;
-    }
-
 }

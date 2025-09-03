@@ -24,23 +24,34 @@ function safeJson(v: unknown) {
  * - extra:   objet optionnel (merge dans la ligne)
  */
 export function createILog(namespace = "app") {
-    return {
-        async log(message: unknown, extra?: Record<string, unknown>) {
-            const dir = path.join(LOG_DIR, namespace);
-            const file = path.join(dir, `${dayStamp()}.log`);
-            await ensureDir(dir);
+    async function write(level: string, message: unknown, extra?: Record<string, unknown>) {
+        const dir = path.join(LOG_DIR, namespace);
+        const file = path.join(dir, `${dayStamp()}.log`);
+        await ensureDir(dir);
 
-            const payload = {
-                ts: new Date().toISOString(),
-                ns: namespace,
-                ...(typeof message === "string" ? { msg: message } : { msg: message }),
-                ...(extra ? { ...extra } : {}),
-            };
-            const line = safeJson(payload) + "\n";
-            await fs.appendFile(file, line, { encoding: "utf8" });
-        },
+        const payload = {
+            ts: new Date().toISOString(),
+            ns: namespace,
+            level,
+            ...(typeof message === "string" ? { msg: message } : { msg: message }),
+            ...(extra ? { ...extra } : {}),
+        };
+        const line = safeJson(payload) + "\n";
+        await fs.appendFile(file, line, { encoding: "utf8" });
+    }
+
+    return {
+        log: (message: unknown, extra?: Record<string, unknown>) =>
+            write("info", message, extra),
+        error: (message: unknown, extra?: Record<string, unknown>) =>
+            write("error", message, extra),
+        warn: (message: unknown, extra?: Record<string, unknown>) =>
+            write("warn", message, extra),
     };
 }
 
-/** Logger “global” prêt à l’emploi */
+/** Logger général */
 export const ilog = createILog("app");
+
+/** Logger erreurs */
+export const elog = createILog("error");
